@@ -1,15 +1,19 @@
 # 🧠 Classification de tweets selon le sentiment (positif ou négatif)
 
-Ce projet a pour but de fournir un **serveur d'inférence** permettant de prédire le **sentiment d'un tweet** à partir de plusieurs modèles d’apprentissage automatique, allant d’approches classiques à des modèles avancés basés sur BERT.
+Ce projet a pour but principal  de fournir un **serveur d'inférence** permettant de prédire le **sentiment (positif ou négatif) d'un tweet** à partir de plusieurs modèles d’apprentissage automatique, allant d’approches classiques à des modèles avancés basés sur BERT.
 
 L'entraînement des modèles est réalisé à partir d’un jeu de données annoté contenant **1 600 000 tweets** (0 = Négatif, 4 = Positif), disponible sur Kaggle :  
 🔗 https://www.kaggle.com/datasets/kazanova/sentiment140
 
-L'ensemble du projet est packagé sous forme d’**images Docker** pour garantir la portabilité. Il intègre :
-- Le **suivi des expérimentations** via **MLFlow**
-- Une **API d'inférence** via **FastAPI**
-- Une **interface utilisateur** via **Streamlit**
-- Un système de **feedback utilisateur** connecté à **Azure Application Insights** pour le monitoring et la traçabilité.
+Pour l'entrainement, le stockage et la mesure des performances des modèles, j'utilise un serveur MLflow local, pour l'installation voir 👉 https://www.mlflow.org/docs/latest/ml/tracking/quickstart.
+
+Pour faciliter la portabilité du serveur d'inférence, celui-ci sera contenu dans une **image docker**.
+
+Deux images dockers seront construites:
+
+ - 1. Une image légère utilisant un modèle BERT entrainé sur les données via MLflow pour l'inférence, exposant une API (FastApi) et conçue pour tourner sur du CPU.
+ - 2. Une image plus lourde qui inclue en plus une interface web interactive (Streamlit) qui permet à un utilisateur de saisir un tweet, d'obtenir une prédiction et d'envoyer un feedback qui sera remonté sur une instance Azure Application Insights pour superviser les performances. 
+
 
 ---
 
@@ -19,9 +23,9 @@ L'ensemble du projet est packagé sous forme d’**images Docker** pour garantir
 Classificateur-de-tweet-selon-le-sentiment-positif-ou-negatif/
 │
 ├── notebooks/                          # Modélisation + tracking des expérimentations via MLFlow
-├── mlflow-server/                      # Image Docker contenant un serveur MLFlow
-├── bert-fastapi-cpu/                   # Image Docker avec serveur d'inférence BERT (FastAPI) optimisé pour CPU
-├── bert-fastapi-streamlit-azure/      # Image Docker avec interface web (Streamlit) + API FastAPI + logs Azure Insights
+├── saved_model/                        # Artefacts extraits de l'entrainement du modèle BERT via le serveur MLflow qui seront utilisés pour construire le serveur d'inférence
+├── bert-fastapi-cpu/                   # Construction d'une image Docker avec serveur d'inférence BERT (FastAPI) optimisé pour CPU
+├── bert-fastapi-streamlit-azure/       # Construction d'une image Docker avec interface web (Streamlit) + API FastAPI + logs Azure Insights
 ├── scripts/                            # Scripts d'entraînement, évaluation, export
 ```
 
