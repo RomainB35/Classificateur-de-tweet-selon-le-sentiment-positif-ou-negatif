@@ -24,16 +24,9 @@ Classificateur-de-tweet-selon-le-sentiment-positif-ou-negatif/
 │
 ├── notebooks/                          # Modélisation + tracking des expérimentations via MLFlow
 ├── saved_model/                        # Artefacts extraits de l'entrainement du modèle BERT via le serveur MLflow qui seront utilisés pour construire le serveur d'inférence
-├── dockerfiles/                        # Fichiers utilisés pour définir les dépendances utilisées pour les images docker ainsi que les applications Fastapi et Streamlit
-├── bert-fastapi-cpu/                   # Construction d'une image Docker avec serveur d'inférence BERT (FastAPI) optimisé pour CPU
-├── bert-fastapi-streamlit-azure/       # Construction d'une image Docker avec interface web (Streamlit) + API FastAPI + logs Azure Insights
+├── dockerfiles/                        # Fichiers utilisés pour construire les images docker et définir les dépendances utilisées ainsi que les applications Fastapi et Streamlit
 ├── scripts/                            # Scripts d'entraînement, évaluation, export
 ```
-
-docker build -t bert-fastapi-streamlit-azure -f bert-fastapi-streamlit-azure/Dockerfile .
-
----
-
 ## 🐳 Installation de Docker
 
 Pour installer Docker sur votre machine, suivre la documentation officielle :  
@@ -46,10 +39,16 @@ docker --version
 ```
 
 ---
+## Pour build les images Docker
+
+```bash
+ docker build -t bert-fastapi-cpu -f dockerfiles/bert-fastapi-cpu/Dockerfile .
+ docker build -t bert-fastapi-streamlit-azure -f bert-fastapi-streamlit-azure/Dockerfile .
+```
 
 ## 🚀 Exploitation des images Docker publiques
 
-Les images Docker du **serveur MLFlow** et du **serveur d'inférence BERT-FastAPI-CPU** sont disponibles publiquement et prêtes à l'emploi.
+L'image docker légère qui contient uniquement le serveur d'inférece exposé via API est disponible publiquement et prêt à l'emploi.
 
 ### 🔹 Télécharger l’image d'inférence
 
