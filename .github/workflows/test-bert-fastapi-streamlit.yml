@@ -1,0 +1,50 @@
+name: Test Streamlit + FastAPI Docker Image
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test-streamlit-fastapi:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Connect to GHCR
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Pull Docker image from GHCR
+        run: docker pull ghcr.io/romainb35/bert-fastapi-streamlit-azure:latest
+
+      - name: Run Docker container with FastAPI and Streamlit
+        run: docker run -d -p 8000:8000 -p 8501:8501 --name streamlit-fastapi-app ghcr.io/romainb35/bert-fastapi-streamlit-azure:latest
+
+      - name: Wait for FastAPI to start
+        run: |
+          for i in {1..10}; do
+            curl -s http://localhost:8000 && break
+            echo "Waiting for FastAPI..."
+            sleep 3
+          done
+
+      - name: Wait for Streamlit to start
+        run: |
+          for i in {1..10}; do
+            curl -s http://localhost:8501 && break
+            echo "Waiting for Streamlit..."
+            sleep 3
+          done
+
+      - name: Run all test scripts
+        run: |
+          chmod +x dockerfiles/bert-fastapi-cpu-streamlit-azure/tests_scripts/*.sh
+          ./dockerfiles/bert-fastapi-cpu-streamlit-azure/tests_scripts/test_streamlit_app.sh
+          ./dockerfiles/bert-fastapi-cpu-streamlit-azure/tests_scripts/test_api_root_endpoint.sh
+          ./dockerfiles/bert-fastapi-cpu-streamlit-azure/tests_scripts/test_api_predict_endpoint.sh
+          ./dockerfiles/bert-fastapi-cpu-streamlit-azure/tests_scripts/test_api_predict_batch_endpoint.sh
+
+      - name: Stop and remove container
+        run: docker stop streamlit-fastapi-app && docker rm streamlit-fastapi-app
+
