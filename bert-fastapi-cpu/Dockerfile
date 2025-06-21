@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 # Copier requirements
-COPY requirements.txt .
+COPY dockerfiles/bert-fastapi-cpu/requirements.txt .
 
 # Mettre pip à jour + installer torch CPU-only avant le reste
 RUN pip install --no-cache-dir --upgrade pip \
@@ -17,7 +17,7 @@ RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
 # Copier le code de l’application
-COPY app.py .
+COPY dockerfiles/bert-fastapi-cpu/app.py .
 COPY saved_model/ ./saved_model/
 
 EXPOSE 8000

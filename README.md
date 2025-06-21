@@ -24,6 +24,7 @@ Classificateur-de-tweet-selon-le-sentiment-positif-ou-negatif/
 │
 ├── notebooks/                          # Modélisation + tracking des expérimentations via MLFlow
 ├── saved_model/                        # Artefacts extraits de l'entrainement du modèle BERT via le serveur MLflow qui seront utilisés pour construire le serveur d'inférence
+├── dockerfiles/                        # Fichiers utilisés pour définir les dépendances utilisées pour les images docker ainsi que les applications Fastapi et Streamlit
 ├── bert-fastapi-cpu/                   # Construction d'une image Docker avec serveur d'inférence BERT (FastAPI) optimisé pour CPU
 ├── bert-fastapi-streamlit-azure/       # Construction d'une image Docker avec interface web (Streamlit) + API FastAPI + logs Azure Insights
 ├── scripts/                            # Scripts d'entraînement, évaluation, export
