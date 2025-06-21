@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+transformers==4.40.1
+streamlit
+numpy<2
+opencensus
+opencensus-ext-azure
+opencensus-ext-logging
+
+

@@ -30,6 +30,8 @@ Classificateur-de-tweet-selon-le-sentiment-positif-ou-negatif/
 ├── scripts/                            # Scripts d'entraînement, évaluation, export
 ```
 
+docker build -t bert-fastapi-streamlit-azure -f bert-fastapi-streamlit-azure/Dockerfile .
+
 ---
 
 ## 🐳 Installation de Docker
