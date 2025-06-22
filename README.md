@@ -114,6 +114,7 @@ Réponse attendue :
   "sentiment": "Tweet positif"
 }
 ```
+
 ## 📚 3. Prédiction sur plusieurs tweets (/predict_batch)
 
 Ce endpoint accepte une liste de textes et renvoie une prédiction pour chacun.
