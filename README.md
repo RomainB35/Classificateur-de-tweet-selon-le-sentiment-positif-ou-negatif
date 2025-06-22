@@ -89,11 +89,11 @@ curl -X GET https://bert-fastapi-service-70236624058.europe-west1.run.app/ | jq
 ```
 
 Réponse attendue :
-
+```bash
 {
   "message": "Service BERT FastAPI is running."
 }
-
+```
 
 ## 💬 2. Prédiction sur un tweet unique (/predict)
 
@@ -106,14 +106,14 @@ curl -X POST https://bert-fastapi-service-70236624058.europe-west1.run.app/predi
 ```
 
 Réponse attendue :
-
+```bash
 {
   "tweet": "I love Cloud Run!",
   "prediction": 4,
   "confidence": 0.89,
   "sentiment": "Tweet positif"
 }
-
+```
 ## 📚 3. Prédiction sur plusieurs tweets (/predict_batch)
 
 Ce endpoint accepte une liste de textes et renvoie une prédiction pour chacun.
@@ -131,7 +131,7 @@ curl -X POST https://bert-fastapi-service-70236624058.europe-west1.run.app/predi
   ```
 
 Réponse attendue :
-
+```bash
 [
   {
     "tweet": "I love Cloud Run!",
@@ -152,7 +152,7 @@ Réponse attendue :
     "sentiment": "Tweet positif"
   }
 ]
-
+```
 ℹ️ Remarques
 
     Tous les endpoints acceptent et renvoient du JSON.
