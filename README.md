@@ -42,9 +42,16 @@ docker --version
 ---
 ## Pour build les images Docker
 
+Image légère
+
 ```bash
  docker build -t bert-fastapi-cpu -f dockerfiles/bert-fastapi-cpu/Dockerfile .
- docker build -t bert-fastapi-streamlit-azure -f bert-fastapi-streamlit-azure/Dockerfile .
+
+```
+Pour l'image lourde, veillez à d'abord renseigner vos credentials de connexion azure dans dockerfiles/bert-fastapi-cpu-streamlit-azure/streamlit_app.py avant de build.
+
+```bash
+ docker build -t bert-fastapi-streamlit-azure -f dockerfiles/bert-fastapi-cpu-streamlit-azure/Dockerfile .
 ```
 
 ## 🚀 Exploitation de l'image Docker publique
@@ -67,6 +74,15 @@ docker run -d -p 8000:8000 ghcr.io/romainb35/bert-fastapi-cpu:latest
 
 Cela lance un conteneur en arrière-plan, accessible à l’adresse :  
 📍 http://localhost:8000/docs (documentation Swagger de l’API)
+
+## 🚀 Exploitation de l'image Docker Streamlit + Azure
+
+### 🔹 Lancer l’API localement
+```bash
+docker run -d -p 8000:8000 -p 8501:8501 bert-fastapi-streamlit-azure
+```
+
+Le serveur Streamlit écoutera alors sur le port 8501 sur l'adresse locale. L'envoi des journaux vers Azure nécessite une connexion internet.
 
 ---
 
